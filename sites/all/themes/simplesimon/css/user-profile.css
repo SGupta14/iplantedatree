@@ -1,0 +1,16 @@
+.profile .user-picture {
+  float:left;
+  border:1px solid;
+  background:#ffffff;
+  height:101px;
+  width:94px;
+}
+
+.profile .main-profile {
+  float:right;
+  width:80%;
+}
+
+.profile .history {
+  padding-top:25%;
+}

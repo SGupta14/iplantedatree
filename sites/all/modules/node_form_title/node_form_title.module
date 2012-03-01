@@ -1,0 +1,13 @@
+<?php
+function node_form_title_form_alter(&$form, &$form_state, $form_id) {
+  switch($form_id) {
+    case 'i_wish_node_form':     
+	drupal_set_title(t('I wish to plant a tree'));
+	break;
+    case 'i_planted_node_form':
+	drupal_set_title(t('I planted a tree'));
+	break;
+  } 
+  return $form;	
+}
+?> 

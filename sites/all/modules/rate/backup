@@ -1,0 +1,11 @@
+sorry
+[11:57:01 AM IST] Mukesh Agarwal: cd /var/ww
+[11:57:05 AM IST] Mukesh Agarwal: cd /var/www
+[11:57:32 AM IST] Mukesh Agarwal: tar -czvf iplantedatree_somya_2012_02_18.tar.gz YOURDRUPALFOLDERNAME
+[11:57:52 AM IST] Mukesh Agarwal: replace YOURDRUPALFOLDERNAME with your actualy drupal folder for iplantedatree
+[11:57:59 AM IST] Mukesh Agarwal: yeh tumhara code change ho gaya
+[11:58:07 AM IST] Mukesh Agarwal: sorry code ka backup ho gaya
+[11:58:42 AM IST] Mukesh Agarwal: mysqldump -uroot -p YOURDBNAME > iplantedatree_somya_db_2012_02_18.sql
+[11:58:56 AM IST] Mukesh Agarwal: this will prompt you for your mysql root password
+[11:59:04 AM IST] Mukesh Agarwal: isse sql dump bhi ban jaayega
+

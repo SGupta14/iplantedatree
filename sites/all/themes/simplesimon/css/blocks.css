@@ -1,0 +1,126 @@
+/* Blocks */
+.block {
+  margin-bottom: 20px;
+}
+
+.block-inner {} /* set block background styles on .block-inner */
+.block-title {}
+#main-content .block-content {
+  margin-top:8px;
+  background-color:#f6f9f6;
+  padding:10px 20px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+}
+
+
+
+/* Mini panels get a special title class */
+.mini-panel-title {
+  margin: 0 10px;
+}
+
+/* Target sidebar blocks */
+.sidebar .block {
+}
+.sidebar .block-inner {}
+.sidebar .block-title {}
+.sidebar .block-content {
+  text-align:center;
+  margin-top:4px;
+}
+.sidebar .block-content a{
+  color:#000000;
+  font-size:20px;
+  font-style:italic;
+  letter-spacing:2px;
+  font-weight:bold;
+}
+.region-sidebar-first  .block-content{
+  position:fixed;
+  left:0;
+  width:25%;
+  background-image:url('images/add_wish_link_all_pages.png');
+  background-repeat:no-repeat;
+  height:400px;
+  background-position:50% 70%;
+} 
+.region-sidebar-second .block-content{
+  position:fixed;
+  right:0;
+  width:25%;
+  background-image:url('images/add_story_link_all_pages.png');
+  background-repeat:no-repeat;
+  height:400px;
+  background-position:50% 70%;
+}
+
+/* Gpanel blocks */
+.gpanel .block {}
+.gpanel .block-inner {}
+.gpanel .block-title {}
+.gpanel .block-content {}
+
+/* Block wrapper for Mini Panels */
+.block-panels_mini {}
+.block-panels_mini .block-inner {}
+.block-panels_mini .block-content {}
+.block-panels_mini .mini-panel-title {
+  margin: 0 10px;
+}
+
+/* Login block - horizontal (theme setting) basic styles */
+.lb-h {
+  min-width: 320px;
+  margin-top: 1px;
+}
+.region-header .lb-h {
+  float: right;
+}
+.lb-h .block-inner,
+.lb-h .block-content {
+  background: none;
+  padding: 0;
+}
+.lb-h #user-login-form {
+  margin: 0;
+}
+.lb-h #user-login-form label {
+  line-height: 1.2
+}
+.lb-h .form-item {
+  float:left;
+  margin: 0;
+}
+.lb-h input.form-text {
+  margin:0 3px 0 0;
+  width:110px;
+}
+.lb-h #edit-actions {
+  margin: 0;
+}
+.lb-h input.form-submit {
+  position: absolute;
+  margin: 0;
+  top: 1.2em;
+}
+.lb-h .form-required,
+.lb-h .item-list {
+  display: none;
+}
+.lb-h h2 {
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Reset margins and padding for the Help block .block-inner */
+#block-system-help .block-inner {
+  padding: 0;
+  margin: 0;
+}
+
+/* Reset block ul in the dashboard */
+#dashboard .block ul {
+  margin-left: 0;
+}

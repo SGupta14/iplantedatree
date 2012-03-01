@@ -1,0 +1,26 @@
+.rate-thumbs-up-btn-up {
+  display: inline-block;
+  background: url(../images/before_click_leaf.png) no-repeat 0 0;
+  width: 24px;
+  height: 24px;
+  text-indent: -999px;
+}
+
+.rate-thumbs-up-btn-up:visited {
+  background: url(../images/after_click_leaf.png) no-repeat 0 0;
+}
+
+.rate-thumbs-up-btn-up:active {
+  background: url(../images/after_click_leaf.png) no-repeat 0 0;
+}
+
+.rate-thumbs-up-btn-up.active-trail {
+  background: url(../images/after_click_leaf.png) no-repeat 0 0;
+}
+
+.rate-thumbs-up-btn-up.active {
+  background: url(../images/after_click_leaf.png) no-repeat 0 0;
+}
+
+
+

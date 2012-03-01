@@ -1,0 +1,78 @@
+<?php
+// $Id: friendconnect.install,v 1.7 2010/01/20 02:10:42 davereid Exp $
+
+/**
+ * @file
+ * Install, update and uninstall functions for the friendconnect module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function friendconnect_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+
+  if ($phase == 'runtime') {
+    if (!variable_get('friendconnect_siteid', '')) {
+      $requirements['friendconnect'] = array(
+        'title' => $t('Google Friend Connect'),
+        'value' => $t('Missing Site ID'),
+        'description' => $t("Add your <a href=\"@gfc\">site's Site ID</a> in the <a href=\"@settings\">Google Friend Connect settings page</a>.", array('@gfc' => 'http://www.google.com/friendconnect/admin/', '@settings' => url('admin/settings/friendconnect'))),
+        'severity' => REQUIREMENT_ERROR,
+      );
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_schema().
+ */
+function friendconnect_schema() {
+  $schema['friendconnect'] = array(
+    'description' => 'Google Friend Connect profile to Local User mapping.',
+    'fields' => array(
+      'fcid' => array(
+        'description' => 'The Google Friend Connect profile id.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+      ),
+      'uid' => array(
+        'description' => 'The local Drupal instance user uid.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'creation_time' => array(
+        'description' => 'Timestamp when the association was created.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'picture' => array(
+        'description' => 'URL of the Google Friend Connect profile picture.',
+        'type' => 'text',
+      ),
+    ),
+    'primary key' => array('fcid'),
+    'unique_keys' => array(
+      'uid' => array('uid'),
+    ),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function friendconnect_uninstall() {
+  drupal_load('module', 'friendconnect');
+  $variables = array_keys(friendconnect_variables());
+  foreach ($variables as $variable) {
+    variable_del($variable);
+  }
+}

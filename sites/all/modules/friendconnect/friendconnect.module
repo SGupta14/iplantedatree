@@ -1,0 +1,226 @@
+<?php
+// $Id: friendconnect.module,v 1.13 2010/01/20 02:54:42 davereid Exp $
+
+/**
+ * Implements hook_help().
+ */
+function friendconnect_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#friendconnect':
+      $output = '<p>' . t("The Google Friend Connect module allows your users to easily connect and contribute to your site's contents.") . '</p>';
+      $output .= '<p>' . t('Register your site once at <a href="@gfc">@gfc</a> and drive more traffic to your site!', array('@gfc' => 'http://www.google.com/friendconnect/')) . '</p>';
+      $output .= '<p>' . t('Visit the official <a href="@code">Google Friend Connect Plugins</a> site for more details.', array('@code' => 'http://code.google.com/p/google-friend-connect-plugins')) . '</p>';
+      return $output;
+  }
+}
+
+/**
+ * Impelements hook_permission().
+ */
+function friendconnect_permission() {
+  return array(
+    'administer google friend connect' => array(
+      'title' => t('Administer Google Friend Connect settings.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function friendconnect_menu() {
+  $items['admin/config/services/friendconnect'] = array(
+    'title' => 'Google Friend Connect',
+    'description' => 'Configure how your site talks to Google Friend Connect.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('friendconnect_settings_form'),
+    'access arguments' => array('administer google friend connect'),
+    'file' => 'friendconnect.admin.inc',
+  );
+  $items['friendconnect/join'] = array(
+    'title' => 'Auto-Login with Google Friend Connect',
+    'description' => 'Login to local Drupal account (create one if needed).',
+    'type' => MENU_SUGGESTED_ITEM,
+    'page callback' => 'friendconnect_join',
+    'access arguments' => array('access content'),
+    'file' => 'friendconnect.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_user().
+ */
+function friendconnect_user($op, &$edit, &$account, $category = NULL) {
+  if ($op == 'load') {
+    if ($fc = db_fetch_object(db_query("SELECT fcid, picture FROM {friendconnect} WHERE uid = %d", $account->uid))) {
+      $account->friendconnect_id = $fc->fcid;
+      if (empty($account->picture)) {
+        $account->picture = $fc->picture;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function friendconnect_form_comment_form_alter(&$form, $form_state) {
+  global $user;
+
+  friendconnect_add_gadget('login');
+
+  $form['friendconnect'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('<strong>Google Friend Connect (leave a quick comment)</strong>'),
+    '#weight' => -1,
+    '#access' => !$user->uid && variable_get('friendconnect_siteid', ''),
+  );
+  $form['friendconnect']['friendconnect_display'] = array(
+    '#type' => 'markup',
+    '#prefix' => '<div id="friendconnect_display">',
+    '#value' => t('Loading'),
+    '#suffix' => '</div>',
+  );
+}
+
+/**
+ * Implements hook_init().
+ */
+function friendconnect_init() {
+  if (!variable_get('friendconnect_siteid', '')) {
+    return;
+  }
+
+  friendconnect_add_gadget('socialbar');
+}
+
+function friendconnect_add_gadget() {
+  static $added;
+
+  $args = func_get_args();
+  $feature = array_shift($args);
+
+  if (!isset($added)) {
+    $added = TRUE;
+
+    // Include the Google AJAX APIs and load the Friend Connect JavaScripts.
+    drupal_add_js('http://www.google.com/jsapi', array('type' => 'external'));
+    // @todo Bump the API to 1.0?
+    drupal_add_js('google.load("friendconnect", "0.8");', array('type' => 'inline', 'scope' => 'footer'));
+    // @todo http://www.google.com/friendconnect/script/friendconnect.js
+    drupal_add_js(drupal_get_path('module', 'friendconnect') . '/friendconnect.js');
+
+    // Add the default required settings.
+    $settings = array(
+      'site_id' => variable_get('friendconnect_siteid', ''),
+      'parent_url' => base_path() . drupal_get_path('module', 'friendconnect') . '/',
+    );
+    drupal_add_js(array('friendconnect' => $settings), array('type' => 'setting'));
+
+    // Load the include file with the gadget callbacks.
+    module_load_include('inc', 'friendconnect');
+  }
+
+  $callback = 'friendconnect_add_' . $feature;
+  if ($feature && function_exists($callback)) {
+    return $callback($args);
+  }
+}
+
+/**
+ * Override of template_preprocess_user_picture().
+ */
+/*function friendconnect_preprocess_user_picture(&$variables) {
+  $variables['picture'] = '';
+  if (variable_get('user_pictures', 0)) {
+    $account = $variables['account'];
+
+    if (!empty($account->picture) && file_exists($account->picture)) {
+      $picture = file_create_url($account->picture);
+    }
+    elseif ($picture = db_query("SELECT picture FROM {friendconnect} WHERE uid = :uid", array(':uid' => $account->uid))->fetchField()) {
+      // Do nothing. Picture variable already assigned.
+    }
+    elseif (variable_get('user_picture_default', '')) {
+      $picture = variable_get('user_picture_default', '');
+    }
+
+    if (!empty($picture)) {
+      $alt = t("@user's picture", array('@user' => $account->name ? $account->name : variable_get('anonymous', t('Anonymous'))));
+      $variables['picture'] = theme('image', $picture, $alt, $alt, $size, FALSE);
+      if ($account->uid && user_access('access user profiles')) {
+        // Create link to the user's profile.
+        $attributes = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
+        $variables['picture'] = l($variables['picture'], "user/$account->uid", $attributes);
+      }
+      elseif (isset($account->homepage)) {
+        // If user is anonymous, create link to the commenter's homepage.
+        $attributes = array('attributes' => array('title' => t('View user website.')), 'html' => TRUE);
+        $variables['picture'] = l($variables['picture'], $account->homepage, $attributes);
+      }
+    }
+  }
+}*/
+
+/**
+ * Internal default variables for friendconnect_var().
+ */
+function friendconnect_variables() {
+  return array(
+    'friendconnect_siteid' => '',
+    'friendconnect_comments' => array(
+      'enabled' => 0,
+      'scope' => 'SITE',
+      'anonymous' => user_access('post comments', drupal_anonymous_user()),
+      'youtube' => 0,
+      'default_text' => t('Add your comment here'),
+      'header_text' => t('Comments'),
+    ),
+    'friendconnect_socialbar' => array(
+      'enabled' => 0,
+      'position' => 'bottom',
+    ),
+    'friendconnect_skin' => array(
+      'ENDCAP_BG_COLOR' => '#E0ECFF',
+      'ENDCAP_TEXT_COLOR' => '#333333',
+      'ENDCAP_LINK_COLOR' => '#0000CC',
+      'BORDER_COLOR' => '#CCCCCC',
+      'CONTENT_HEADLINE_COLOR' => '#333333',
+      'CONTENT_BG_COLOR' => '#FFFFFF',
+      'ALTERNATE_BG_COLOR' => '#FFFFFF',
+      'CONTENT_TEXT_COLOR' => '#333333',
+      'CONTENT_SECONDARY_TEXT_COLOR' => '#333333',
+      'CONTENT_LINK_COLOR' => '#0000CC',
+      'CONTENT_SECONDARY_LINK_COLOR' => '#0000CC',
+    )
+  );
+}
+
+/**
+ * Internal implementation of variable_get().
+ */
+function friendconnect_var($name, $default = NULL) {
+  static $defaults = NULL;
+  if (!isset($defaults)) {
+    $defaults = friendconnect_variables();
+  }
+
+  $name = 'friendconnect_' . $name;
+
+  // @todo Remove when stable.
+  if (!isset($defaults[$name])) {
+    trigger_error(strtr('Default variable for %variable not found.', array('%variable' => theme('placeholder', $name))));
+    $defaults[$name] = $default;
+  }
+
+  $variable = variable_get($name, isset($default) ? $default : $defaults[$name]);
+
+  // Handle new sub-variables.
+  if (is_array($variable) && is_array($defaults[$name])) {
+    $variable += $defaults[$name];
+  }
+
+  return $variable;
+}

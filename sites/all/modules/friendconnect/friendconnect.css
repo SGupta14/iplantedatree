@@ -1,0 +1,12 @@
+/* $Id: friendconnect.css,v 1.1 2010/01/20 00:39:16 davereid Exp $ */
+
+label.color-label {
+  clear: left;
+  float: left;
+  width: 15em;
+}
+
+div#gfc_color_picker {
+  float: right;
+  clear: right;
+}

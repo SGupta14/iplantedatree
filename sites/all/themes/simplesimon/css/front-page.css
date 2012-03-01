@@ -1,0 +1,225 @@
+/*Front page set up*/
+
+/*Position of secondary content*/
+
+#main-links {
+  margin-top:10px;
+}
+
+#main-links #block-block-7,#main-links #block-block-8 {
+  width:50%;
+}
+
+#main-links #block-block-8 {
+  border-right:1px dashed #000000;
+}
+
+#main-links .block-content {
+  padding:60px 0px;;
+}
+
+#main-links #block-block-7 {
+  float:right;
+}
+#main-links #block-block-7 .block-content {
+  background-image:url('images/front_page_add_story.png');
+  background-repeat:no-repeat;
+  background-position:50% 10%;
+  height:100px;
+}
+#main-links #block-block-8 .block-content {
+  background-image:url('images/front_page_create_wish.png');
+  background-repeat:no-repeat;
+  background-position:50% 10%;
+  height:100px;
+}
+
+#main-links .block-content a{
+  position:absolute;
+  bottom:2px;
+  right:25%;
+  color:#000000;
+  font-size:18px;
+  letter-spacing:2px;
+  font-weight:bold;
+}
+#main-links #block-block-7 .block-content a {
+    bottom:-19px;
+}
+
+/*Formatting highlighted region*/
+#users-breifs {
+ margin-top:-20px;
+}
+
+#users-breifs .block-views {
+  width:50%;
+  height:38px;
+  float:left;
+}
+
+.rate-widget-1, .rate-widget-2 {
+	float:right;
+        margin-top:38px;
+}
+.rate-widget-2:after {
+	content:" Encourage";
+}
+
+.rate-widget-1:after {
+	content:" Thank";
+}
+#users-breifs .block-content img{
+  border:1px solid black;
+  height:75px;
+  width:56px;
+}
+#users-breifs .block-inner {
+  border-top:1px solid #000000;
+  border-bottom:1px solid #000000;
+  background: #F6F9F6;
+  padding:15px 5px 5px 15px;
+  margin-right:0px;
+  margin-left:0px;
+}
+#users-breifs #block-views-stories-block .block-inner {
+  border-left:1px dashed black;
+}
+#users-breifs .views-field-title a {
+  float:right;
+  font-size:20px;
+}
+
+
+/*Formatting content aside*/
+#proverb-for-site {
+	position:relative;
+	top:170px;
+}
+#proverb-for-site p {
+  text-align:center;
+  font-size:30px;
+  letter-spacing:3px;
+  word-spacing:10px;
+}
+/*Formatting tertiary*/
+#links-main-sections #block-block-3,#links-main-sections #block-block-4,#links-main-sections #block-block-5 {
+  width:30%;
+}
+#links-main-sections a {
+	position:relative;
+	top:50%;
+}
+
+#links-main-sections {
+	position:relative;
+	top:120px;
+}
+
+#links-main-sections .block-content {
+  padding:5px;
+  height:100px;
+  background-color:#f6f9f6;
+  border-radius:5px;
+  text-align:center;
+  vertical-align:middle;
+}
+
+#links-main-sections .block-content a {
+	font-size:15px;
+}
+
+#links-main-sections #block-block-5 {
+  float:right;
+  position:relative;
+  bottom:148px;
+}
+
+#links-main-sections #block-block-3{
+  float:right;
+  right:35%;
+}
+
+/*Position of logo and site name*/
+#logo-front-page {
+  margin: 0 10px;
+  height:5em;
+  width:5em;
+}
+
+#logo-front-page {
+	position:relative;
+	top:100px;
+}
+
+#site-name-front-page {
+  white-space:nowrap;
+  float:left;
+  position:relative;
+  top:100px;
+  margin-top:-1.6em;
+  margin-left:3.3em;
+  font-size:2em;
+  text-decoration:none;
+  
+  background: #57f157;
+  padding: 1px 25px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+
+}
+#site-name-front-page a    {
+  color: #ffffff;
+}
+
+.region-footer {
+	float:right;
+	position:relative;
+	top:50px;
+}
+
+#block-block-11,#block-block-15, #block-block-10, #block-block-9 {
+  white-space:nowrap;
+  color:#ffffff;
+  float:left;
+  position:relative;
+  top:-57px;
+  margin-top:-2.6em;
+  margin-left:0.8em;
+  font-size:1em;
+  text-decoration:none;
+  
+  background: #57f157;
+  padding: 1px 25px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+
+/*#block-block-11 {
+  white-space:nowrap;
+  color:#ffffff;
+  float:left;
+  position:relative;
+  top:-57px;
+  margin-top:-2.6em;
+  margin-left:0.8em;
+  font-size:1em;
+  text-decoration:none;
+  
+  background: #57f157;
+  padding: 1px 25px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+}*/
+
+.region-footer .menu  a {
+  background: #57f157;
+  padding: 4px 10px;
+  margin:25px 4px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 5px;
+  font-size:18px;
+  color:#ffffff;
+  font-weight:bold;
+}
+

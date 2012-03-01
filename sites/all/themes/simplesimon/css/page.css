@@ -1,0 +1,131 @@
+/* Page */
+
+/* Header */
+#page > header {}
+#logo {
+  margin: 0 10px;
+  height:8em;
+  width:8em;
+}
+#page > header > hgroup {
+  margin: 0 10px;
+}
+#site-name {
+  white-space:nowrap;
+  position:absolute;
+  margin-top:-1.6em;
+  margin-left:2.2em;
+  font-size:4em;
+  text-decoration:none;
+  
+  background: #57f157;
+  padding: 1px 25px;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+
+}
+#site-name a    {
+  color: #ffffff;
+}
+#site-name a:visited {}
+#site-name a:hover   {}
+#site-name a:focus   {}
+#site-name a:active  {}
+#site-slogan {}
+
+/* Page title */
+h1#page-title {
+  white-space:nowrap;
+  text-align:right;
+  font-style:italic;
+  background-color:#ecf4ec;  
+  padding:2px 6px;
+  -moz-border-radius: 9px;
+  -webkit-border-radius: 9px;
+}
+
+h1#page-title:before {
+  content:url('images/page_title_decoration.png');
+  position:relative;
+  top:4px;
+}
+
+/* Regions */
+.region-leaderboard {
+  float:right;
+  margin-top:15px;
+}
+.region-header {}
+.region-secondary-content {}
+.region-highlighted {}
+.region-content-aside {}
+.region-tertiary-content {}
+.region-footer {}
+
+/* Sidebars */
+.sidebar {
+}
+.region-sidebar-first {
+}
+.region-sidebar-second {
+}
+
+/* Footer - the main page footer only */
+#page > footer {}
+
+/* Feed icons */
+#feed-icons {}
+#feed-icons .feed-icon {}
+#feed-icons .feed-icon img {}
+#feed-icons a.feed-icon {}
+
+/* Search results list. */
+.search-results {}
+.search-results .search-result {}
+.search-results .title {}
+.search-results .search-snippet-info {}
+.search-results p {}
+.search-results .search-snippet {}
+.search-results .search-info {}
+
+span.search-info-type {}
+span.search-info-user {}
+span.search-info-date {}
+span.search-info-comment {}
+span.search-info-upload  {}
+
+/* Aggregator */
+.feed-item {}
+.feed-item header {}
+.feed-item-title {}
+.feed-item-meta {}
+.feed-item .content {}
+.feed-item footer {}
+.feed-source {}
+.feed-description {}
+
+/* Maintenance page */
+.maintenance-page #skip-link {
+  position: absolute;
+  top: -99em;
+}
+.maintenance-page footer {
+  margin: 10px 0 0;
+}
+.maintenance-page footer a {
+  text-decoration: none;
+  color: #ccc;
+}
+
+/* Prevent overflowing content */
+header[role=banner],
+.content-inner,
+.nav,
+.region-sidebar-first,
+.region-sidebar-second,
+.region-secondary-content,
+.region-tertiary-content,
+.region-footer {
+  overflow: visible;
+  word-wrap: break-word;
+}
